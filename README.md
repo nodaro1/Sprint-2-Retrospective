@@ -1,4 +1,4 @@
-# Sprint-1-Retrospective
+# Sprint-2-Retrospective
 
 Barrow Neurological Institute - Barrow Neuro-Rehabilitation Center - Therapy AR/MR Application
 
@@ -13,3 +13,7 @@ Finishing executive summary on sprint retrospective.
 Setting up Meta Quest 3 and Meta Dev Environment
 
 - Anand Krishna Mishra
+
+Updating GUI code to add patient reminder functionality.
+
+- Nosakhare Odaro
