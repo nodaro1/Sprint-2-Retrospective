@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,6 +9,7 @@ public class VRLevelSelector : MonoBehaviour
     [SerializeField] private Button[] levelButtons; // assign these in inspector
     [SerializeField] private Button viewResultsButton;
     [SerializeField] private XRRayInteractor rayInteractor;
+    [SerializeField] private GameObject[] coloredSpheres; // assign these in inspector
 
     private void Start()
     {
@@ -52,11 +54,23 @@ public class VRLevelSelector : MonoBehaviour
         Debug.Log($"Loading {gameName}");
         // code to load the specific game scene or start the game logic
         HideLevelSelector();
+        if (gameName == "ColorCode") {
+            ColorCodeGame();
+        }
     }
 
     private void ViewResults()
     {
         Debug.Log("Viewing Patient Results");
         // code to display results
+    }
+
+    private void ColorCodeGame()
+    {
+        for (GameObject coloredSphere : coloredSpheres) {
+            coloredSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        }
+         Debug.Log("Color Code Game Loaded");
+        // code to display Color Code game
     }
 }
