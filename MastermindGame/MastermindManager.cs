@@ -72,9 +72,28 @@ public class MastermindManager : MonoBehaviour
         }
     } 
 
-    // Displays the feedback back to the user
     void DisplayFeedback(int correctPositions, int correctColors)
+{
+    // Create feedback markers in 3D space
+    GameObject[] feedbackMarkers = new GameObject[codeLength];
+    Vector3 markerOffset = new Vector3(0.05f, 0, 0); // Small offset between markers
+
+    for (int i = 0; i < correctPositions; i++)
     {
-        feedbackPanel.GetComponent<UnityEngine.UI.Text>().text = $"Correct Positions: {correctPositions}, Correct Colors: {correctColors}";
+        // Add black markers for correct position and color (feel free to change color) 
+        feedbackMarkers[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        feedbackMarkers[i].transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        feedbackMarkers[i].transform.position = feedbackPanel.transform.position + (i * markerOffset);
+        feedbackMarkers[i].GetComponent<Renderer>().material.color = Color.black;
     }
+    
+    for (int i = correctPositions; i < correctPositions + correctColors; i++)
+    {
+        // Add white markers for correct color but wrong position (feel free to change color)
+        feedbackMarkers[i] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        feedbackMarkers[i].transform.localScale = new Vector3(0.02f, 0.02f, 0.02f);
+        feedbackMarkers[i].transform.position = feedbackPanel.transform.position + (i * markerOffset);
+        feedbackMarkers[i].GetComponent<Renderer>().material.color = Color.white;
+    }
+}
 }
