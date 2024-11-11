@@ -10,6 +10,7 @@ public class VRLevelSelector : MonoBehaviour
     [SerializeField] private Button viewResultsButton;
     [SerializeField] private XRRayInteractor rayInteractor;
     [SerializeField] private GameObject[] coloredSpheres; // assign these in inspector
+    [SerializeField] private XRGrabInteractable liftInteractable;
 
     private void Start()
     {
@@ -57,6 +58,15 @@ public class VRLevelSelector : MonoBehaviour
         if (gameName == "ColorCode") {
             ColorCodeGame();
         }
+        else if (gameName == "Lifting/Stacking") {
+            liftInteractable = GetComponent<XRGrabInteractable>();
+            // interaction with XR controllers
+            if (grabInteractable != null)
+            {
+                liftInteractable.onSelectEntered.AddListener(Lift);
+                liftInteractable.onSelectExited.AddListener(Stack);
+            }
+        }
     }
 
     private void ViewResults()
@@ -72,5 +82,25 @@ public class VRLevelSelector : MonoBehaviour
         }
          Debug.Log("Color Code Game Loaded");
         // code to display Color Code game
+    }
+
+    private void Lift(XRBaseInteractor interactor)
+    {
+        Debug.Log("Block lifted by: " + interactor.name);
+        Rigidbody block = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true; // kinematic physics disabled by lifting
+        }
+    }
+
+    private void Stack(XRBaseInteractor interactor)
+    {
+        Debug.Log("Block stacked by: " + interactor.name);
+        Rigidbody block = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = false; // kinematic physics enabled by lifting
+        }
     }
 }
