@@ -4,7 +4,7 @@ Barrow Neurological Institute - Barrow Neuro-Rehabilitation Center - Therapy AR/
 
 ## Contributors
 
-Anand Krishna Mishra
-Ajay Partha
-Benjamin Cohen
-Nosakhare Odaro
+### Anand Krishna Mishra
+### Ajay Partha
+### Benjamin Cohen
+### Nosakhare Odaro
