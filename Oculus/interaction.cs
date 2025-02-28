@@ -69,6 +69,7 @@ namespace Oculus.Interaction
 
         protected virtual void Start()
         {
+            Invoke("feedback", 30); // Feedback after 30 seconds
             this.BeginStart(ref _started);
 
             this.AssertField(InteractableView, nameof(InteractableView));
