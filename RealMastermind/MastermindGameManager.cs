@@ -8,6 +8,7 @@ public class MastermindGameManager : MonoBehaviour
     private int currentAttempt = 0; // Tracks which row is currently being guessed
 
     public List<BlockColor> solutionColors = new List<BlockColor>(); // The correct sequence
+    public List<GameObject> finalSolutionCubes;
 
     // Separate lists for each row of slots and feedback cubes
     public List<BoardSlot> row1Slots = new List<BoardSlot>();
@@ -59,30 +60,12 @@ public class MastermindGameManager : MonoBehaviour
     Debug.Log("Generated Unique Solution: " + string.Join(", ", solutionColors));
 }
 
-    /*private void GenerateRandomSolution()
-    {
-        solutionColors.Clear();
-        BlockColor[] availableColors = (BlockColor[])System.Enum.GetValues(typeof(BlockColor));
-
-        for (int i = 0; i < sequenceLength; i++)
-        {
-            BlockColor randomColor;
-            do
-            {
-                randomColor = availableColors[Random.Range(1, availableColors.Length)]; // Skipping 'None'
-            } while (randomColor == BlockColor.None); // Ensure 'None' is never chosen
-
-            solutionColors.Add(randomColor);
-        }
-
-        Debug.Log("Generated Solution: " + string.Join(", ", solutionColors));
-    }*/
-
     public void CheckGuess()
     {
         if (currentAttempt >= maxAttempts)
         {
             Debug.Log("No more guesses allowed! Game Over!");
+            RevealSolution();
             return;
         }
 
@@ -120,9 +103,14 @@ public class MastermindGameManager : MonoBehaviour
         if (correctPosition == sequenceLength)
         {
             Debug.Log("You guessed the correct sequence! Game Over!");
+            RevealSolution();
             return;
         }
 
+        if (currentAttempt == 4) {
+            RevealSolution();
+        }
+        
         // Move to the next row for the next guess
         currentAttempt++;
     }
@@ -224,33 +212,39 @@ public class MastermindGameManager : MonoBehaviour
         }
     }
 
-    /*private void AssignFeedback(int correctPosition, int correctColorWrongPosition, List<GameObject> feedbackCubes)
+    private void RevealSolution()
+{
+    // Make sure finalSolutionCubes has at least 'sequenceLength' cubes
+    for (int i = 0; i < sequenceLength; i++)
     {
-        foreach (var cube in feedbackCubes)
+        if (i < finalSolutionCubes.Count)
         {
-            cube.GetComponent<MeshRenderer>().material.color = defaultColor;
+            Color revealColor = ConvertBlockColorToUnityColor(solutionColors[i]);
+            finalSolutionCubes[i].GetComponent<MeshRenderer>().material.color = revealColor;
         }
+    }
+}
 
-        int index = 0;
+    private Color ConvertBlockColorToUnityColor(BlockColor blockColor)
+{
+    switch (blockColor)
+    {
+        case BlockColor.Red:
+            return Color.red;
+        case BlockColor.Blue:
+            return Color.blue;
+        case BlockColor.Green:
+            return Color.green;
+        case BlockColor.Yellow:
+            return Color.yellow;
+        case BlockColor.Orange:
+            Color orange = new Color(1f, 0.5f, 0f);
+            return orange;
+        case BlockColor.Purple:
+            return Color.magenta;
+        default:
+            return Color.gray;
+    }
+}
 
-        // Assign red for correct color & position
-        for (int i = 0; i < correctPosition; i++)
-        {
-            if (index < feedbackCubes.Count)
-            {
-                feedbackCubes[index].GetComponent<MeshRenderer>().material.color = correctPositionColor;
-                index++;
-            }
-        }
-
-        // Assign white for correct color in the wrong position
-        for (int i = 0; i < correctColorWrongPosition; i++)
-        {
-            if (index < feedbackCubes.Count)
-            {
-                feedbackCubes[index].GetComponent<MeshRenderer>().material.color = correctColorWrongPositionColor;
-                index++;
-            }
-        }
-    }*/
 }
