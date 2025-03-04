@@ -1,40 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using System.Collections.Generic;
 
 public class BlockSpawner : MonoBehaviour
 {
     [Header("Block Settings")]
-    public GameObject blockPrefab;        // create setting which allows you to assign the block prefab to this variable in the script (done in unity GUI later)
-    public int numberOfBlocks = 3;        // num blocks to spawn
-    public Vector3 spawnPosition = new Vector3(0, 1, 0); // block starting position
-    public Vector3 spawnOffset = new Vector3(0, 0.5f, 0);  // set offset between blocks
+    public GameObject blockPrefab;
+    public int numberOfBlocks = 3;
+    public Vector3 spawnPosition = new Vector3(0, 1, 0);
+    public Vector3 spawnOffset = new Vector3(3, 0, 0);
 
-    // optional setting: can spawn blocks at runtime (button press)
-    void Update()
+    private List<GameObject> spawnedBlocks = new List<GameObject>();
+
+    
+    void Start()
     {
-        // ex: press S key to spawn blocks
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            SpawnBlocks();
-        }
+        // SpawnBlocks();  // COMMENT THIS OUT
     }
+    
 
-    // spawn blocks in a stack
-    public void SpawnBlocks()
+    // Make this public so GameManager or UI can call it:
+    public List<GameObject> SpawnBlocks()
     {
+        // Clear any previous blocks if needed
+        foreach (var block in spawnedBlocks)
+        {
+            Destroy(block);
+        }
+        spawnedBlocks.Clear();
+
         for (int i = 0; i < numberOfBlocks; i++)
         {
             Vector3 position = spawnPosition + i * spawnOffset;
-            Instantiate(blockPrefab, position, Quaternion.identity);
+            GameObject block = Instantiate(blockPrefab, position, Quaternion.identity);
+            spawnedBlocks.Add(block);
         }
-    }
-
-    //  spawn blocks at the start automatically
-    void Start()
-    {
-        SpawnBlocks();
+        return spawnedBlocks;
     }
 }
-
