@@ -18,7 +18,6 @@
  * limitations under the License.
  */
 
-
 using System;
 using System.Collections;
 using UnityEngine;
@@ -69,7 +68,6 @@ namespace Oculus.Interaction
 
         protected virtual void Start()
         {
-            Invoke("feedback", 30); // Feedback after 30 seconds
             this.BeginStart(ref _started);
 
             this.AssertField(InteractableView, nameof(InteractableView));
@@ -88,6 +86,25 @@ namespace Oculus.Interaction
                 UpdateVisual();
                 InteractableView.WhenStateChanged += UpdateVisualState;
                 Invoke("feedback", 1);
+            }
+        }
+
+        public void DropDown(int index)
+        {
+            switch (index)
+            {
+                case 1:
+                    Invoke("feedback", 30);
+                    break;
+                case 2:
+                    Invoke("feedback", 20);
+                    break;
+                case 3:
+                    Invoke("feedback", 10);
+                    break;
+                case 4:
+                    Invoke("feedback", 5);
+                    break;
             }
         }
 
