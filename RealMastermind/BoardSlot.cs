@@ -84,7 +84,7 @@ public class BoardSlot : MonoBehaviour
     
     private void CheckIfRowIsFull()
     {
-        MastermindGameManager gameManager = FindObjectOfType<MastermindGameManager>();
+        MastermindNew gameManager = FindObjectOfType<MastermindNew>();
         if (gameManager != null)
         {
             gameManager.CheckGuess();
