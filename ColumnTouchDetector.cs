@@ -4,40 +4,6 @@
 //{
 //    public bool isCorrectColumn = false;
 //    private Renderer rend;
-
-//    void Start()
-//    {
-//        rend = GetComponent<Renderer>();
-//        rend.material.color = Color.gray;
-//    }
-
-//    void OnTriggerEnter(Collider other)
-//    {
-//        Debug.Log("Touched by: " + other.name);
-
-//        // TEMP: Allow anything to trigger and log what it is
-//        if (isCorrectColumn)
-//        {
-//            Debug.Log("Correct column touched!");
-//            rend.material.color = Color.green;
-//        }
-//        else
-//        {
-//            Debug.Log("Wrong column touched.");
-//            rend.material.color = Color.red;
-//        }
-//    }
-
-
-//}
-
-
-//using UnityEngine;
-
-//public class ColumnTouchSimple : MonoBehaviour
-//{
-//    public bool isCorrectColumn = false;
-//    private Renderer rend;
 //    private Color defaultColor = Color.gray;
 
 //    void Start()
